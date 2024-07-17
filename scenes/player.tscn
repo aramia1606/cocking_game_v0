@@ -252,8 +252,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1bwa"]
 size = Vector2(20, 11)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2q4n"]
-size = Vector2(20, 31)
+[sub_resource type="CircleShape2D" id="CircleShape2D_jwh65"]
+radius = 18.0278
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
 z_index = 4
@@ -285,5 +285,5 @@ collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 modulate = Color(0.802589, 0.797129, 0.772219, 1)
-position = Vector2(14, -15)
-shape = SubResource("RectangleShape2D_e2q4n")
+position = Vector2(1, -14)
+shape = SubResource("CircleShape2D_jwh65")

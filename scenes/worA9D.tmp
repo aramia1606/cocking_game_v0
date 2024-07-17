@@ -1,7 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://b7e52iev36tg7"]
+[gd_scene load_steps=20 format=3 uid="uid://b7e52iev36tg7"]
 
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_car6e"]
 [ext_resource type="Texture2D" uid="uid://ds27spccsyxch" path="res://sprite/forest/Texture/TX Tileset Wall.png" id="1_iksi8"]
-[ext_resource type="Script" path="res://scripts/World.gd" id="1_ub6pm"]
 [ext_resource type="Texture2D" uid="uid://bxrqxh2rleieu" path="res://sprite/forest/Texture/TX Tileset Stone Ground.png" id="2_mwdfc"]
 [ext_resource type="Texture2D" uid="uid://c2ndyxowgawy0" path="res://sprite/forest/Texture/TX Tileset Grass.png" id="3_elvwb"]
 [ext_resource type="Texture2D" uid="uid://cytocoqgjydbb" path="res://sprite/forest/Texture/TX Struct.png" id="4_atyb1"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://cjmjfr0b34gra" path="res://sprite/forest/Texture/TX Props.png" id="7_q4nks"]
 [ext_resource type="Texture2D" uid="uid://00yo7bqwkjx8" path="res://sprite/forest/Texture/TX Plant.png" id="8_wfymc"]
 [ext_resource type="PackedScene" uid="uid://comy3p87362x2" path="res://scenes/player.tscn" id="9_4fxvp"]
-[ext_resource type="PackedScene" uid="uid://bib1kc27g8522" path="res://scenes/object.tscn" id="9_pgce2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4bps3"]
 texture = ExtResource("1_iksi8")
@@ -3822,7 +3821,7 @@ sources/7 = SubResource("TileSetAtlasSource_1x6nw")
 [node name="world" type="Node2D"]
 y_sort_enabled = true
 position = Vector2(1, -1)
-script = ExtResource("1_ub6pm")
+script = ExtResource("1_car6e")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -3838,9 +3837,6 @@ layer_2/y_sort_enabled = true
 layer_2/z_index = 1
 layer_2/tile_data = PackedInt32Array(1114177, 1048582, 5)
 
-[node name="object" parent="." instance=ExtResource("9_pgce2")]
-position = Vector2(708, 316)
-
 [node name="player" parent="." instance=ExtResource("9_4fxvp")]
 z_index = 1
-position = Vector2(706, 292)
+position = Vector2(708, 316)
