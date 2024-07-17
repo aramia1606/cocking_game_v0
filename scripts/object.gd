@@ -15,8 +15,11 @@ func _process(delta):
 	if Input.is_action_pressed("ui_space"):
 		isHold = not isHold
 		print("Space pressed")
-	#if isHold == true: 
-		#$".".global_position = playerPosition + Vector2(5 , 10)
+	if isHold == true and playerPosition != null : 
+		$".".global_position = playerPosition + Vector2(5 , -10)
+		$collision.disabled = true
+	else : 
+		$collision.disabled = false
 
 func _on_interaction_body_entered(body):
 	$Label.visible = true
