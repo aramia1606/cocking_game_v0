@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj3wrlqt3krqt"]
+
+[ext_resource type="FontFile" uid="uid://yvsjnk6fn0nq" path="res://C&C Red Alert [INET].ttf" id="1_8aqv8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_idpmy"]
+font = ExtResource("1_8aqv8")
+font_size = 10
+
+[node name="Label" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Click SPACEBAR"
+label_settings = SubResource("LabelSettings_idpmy")
