@@ -280,8 +280,6 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 modulate = Color(0.802589, 0.797129, 0.772219, 1)

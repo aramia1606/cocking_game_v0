@@ -1,10 +1,11 @@
 extends StaticBody2D
-#var isHold = false
-#var playerPosition
-#var objectPosition = $".".get_position
+class_name pickableObject 
 
 
-# Called when the node enters the scene tree for the first time.
+@export_enum("Tomate", "Salade") var nameObject: String = "Tomate"
+var dictTextures = {"Tomate": "res://sprite/food and kitchenware icons/salade.png", "Salade": "res://sprite/food and kitchenware icons/tomato.png"}
+
+
 func _ready():
 	pass # Replace with function body.
 
@@ -14,18 +15,7 @@ func _process(delta):
 	pass
 
 
-#func holding_process(delta): 
-	#print(isHold, playerPosition)
-	#if Input.is_action_pressed("ui_space"):
-		#isHold = not isHold
-		#print("Space pressed")
-	#if isHold == true and playerPosition != null : 
-		#$".".global_position = playerPosition + Vector2(5 , -10)
-		#$collision.disabled = true
-		#$Label.visible = false
-	#else : 
-		#$collision.disabled = false
-		
+
 func _on_interaction_body_entered(body):
 	$Label.visible = true
 

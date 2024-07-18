@@ -36,7 +36,6 @@ position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_qeqwy")
 
 [node name="interaction" type="Area2D" parent="."]
-visibility_layer = 2
 script = SubResource("GDScript_so2ta")
 
 [node name="interactionCollision" type="CollisionShape2D" parent="interaction"]
