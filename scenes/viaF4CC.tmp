@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsffanajwtlyl"]
+
+[ext_resource type="Script" path="res://scripts/food.gd" id="1_e7d78"]
+[ext_resource type="Texture2D" uid="uid://cvnwc3xnuc1d6" path="res://sprite/food and kitchenware icons/viande_cru.png" id="2_7wksy"]
+[ext_resource type="Texture2D" uid="uid://dwn7flry12que" path="res://sprite/food and kitchenware icons/viande_undercooked.png" id="3_pmosr"]
+[ext_resource type="Texture2D" uid="uid://75g443cxiirx" path="res://sprite/food and kitchenware icons/viande_cooked.png" id="4_d05ve"]
+[ext_resource type="Texture2D" uid="uid://f4prbavf0jbb" path="res://sprite/food and kitchenware icons/burned_food.png" id="5_g86iu"]
+[ext_resource type="Script" path="res://scripts/interaction.gd" id="6_re86h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hb5o0"]
+radius = 25.0
+
+[node name="viande" type="Node2D" node_paths=PackedStringArray("sprite", "cooking_timer", "time_bar")]
+position = Vector2(43, 26)
+script = ExtResource("1_e7d78")
+state = 0
+cooking_time = 20
+sprite = NodePath("Sprite2D")
+cooking_timer = NodePath("Timer1")
+time_bar = NodePath("ProgressBar")
+rawTexture = ExtResource("2_7wksy")
+undercookedTexture = ExtResource("3_pmosr")
+cookedTexture = ExtResource("4_d05ve")
+burnTexture = ExtResource("5_g86iu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_7wksy")
+
+[node name="Timer1" type="Timer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(60, 0)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -45.0
+offset_right = 30.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_stretch_ratio = 5.4
+rounded = true
+metadata/_edit_use_anchors_ = true
+
+[node name="InteractionArea" type="Area2D" parent="."]
+script = ExtResource("6_re86h")
+action_name = "cuire"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_hb5o0")
+
+[connection signal="timeout" from="Timer1" to="." method="_on_timer_1_timeout"]

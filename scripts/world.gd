@@ -1,6 +1,6 @@
 extends Node2D
 
-var object = load("res://scenes/object.tscn")
+var object = load("res://scenes/objet.tscn")
 var nbInstance = 0
 var listTexture = ["res://sprite/food and kitchenware icons/salade.png", "res://sprite/food and kitchenware icons/tomato.png"]
 var texturePointer = 0
@@ -40,10 +40,9 @@ func creatListInstance():
 			listInstance.append(obj)
 
 var collided_object = null
-
+var isHolding:bool = false
 func _process(delta):
 	collided_object = has_collision()
-	
 	listObject = get_children()
 	if Input.is_action_just_pressed("ui_space"):
 		print("Space")
@@ -52,17 +51,18 @@ func _process(delta):
 		else:
 			var sprite_collided_object = collided_object.get_node("sprite")
 			alternateTexture(sprite_collided_object)
-	
 	if collided_object:
 		var collision = collided_object.get_node("collision")
 		var sprite = collided_object.get_node("sprite")
-		if Input.is_action_pressed("ui_w"):
-			print("W")
+		
+		if Input.is_action_just_pressed("ui_w") :
+			if isHolding == true : 
+				collision.disabled = false 
+				collided_object.position = $player.position + Vector2(20, -10)
+				sprite.position = Vector2(0,0)
+			isHolding = not isHolding
+		if isHolding :
 			collision.disabled = true
 			collided_object.position = $player.position
-			sprite.position =  Vector2(10, -10)
-		
-		if Input.is_action_just_released("ui_w"):
-			collision.disabled = false 
-			collided_object.position = $player.position + Vector2(20, -10)
-			sprite.position = Vector2(0,0)
+			sprite.position =  Vector2(10, -10)	
+

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://byt51cppw71rg"]
+
+[ext_resource type="FontFile" uid="uid://yvsjnk6fn0nq" path="res://C&C Red Alert [INET].ttf" id="1_eypsk"]
+[ext_resource type="Script" path="res://scripts/interactionManager.gd" id="1_fiidc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2xp4r"]
+font = ExtResource("1_eypsk")
+
+[node name="InteractionManager" type="Node2D"]
+script = ExtResource("1_fiidc")
+
+[node name="Label" type="Label" parent="."]
+z_index = 20
+offset_right = 40.0
+offset_bottom = 23.0
+text = "[W] to interact"
+label_settings = SubResource("LabelSettings_2xp4r")
+horizontal_alignment = 1

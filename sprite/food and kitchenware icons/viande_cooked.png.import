@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6qr5amjpubbx"
-path="res://.godot/imported/cuisson.png-98df0c212a3e414ba3f188019f10f295.ctex"
+uid="uid://75g443cxiirx"
+path="res://.godot/imported/viande_cooked.png-6c0d22d819729d7df29c7b86fe00ba40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprite/food and kitchenware icons/cuisson.png"
-dest_files=["res://.godot/imported/cuisson.png-98df0c212a3e414ba3f188019f10f295.ctex"]
+source_file="res://sprite/food and kitchenware icons/viande_cooked.png"
+dest_files=["res://.godot/imported/viande_cooked.png-6c0d22d819729d7df29c7b86fe00ba40.ctex"]
 
 [params]
 

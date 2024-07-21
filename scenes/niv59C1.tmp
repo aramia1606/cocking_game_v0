@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://drl0uuefuj7io"]
+
+[ext_resource type="PackedScene" uid="uid://bsffanajwtlyl" path="res://scenes/viande.tscn" id="1_gjbl6"]
+[ext_resource type="Script" path="res://scenes/niveau_0.gd" id="1_wf21w"]
+[ext_resource type="PackedScene" uid="uid://comy3p87362x2" path="res://scenes/player.tscn" id="2_ej8xy"]
+[ext_resource type="PackedScene" uid="uid://dgve1w6rfevn7" path="res://scenes/pan.tscn" id="3_lhmnj"]
+
+[node name="niveau0" type="Node2D"]
+script = ExtResource("1_wf21w")
+
+[node name="viande2" parent="." instance=ExtResource("1_gjbl6")]
+position = Vector2(235, 110)
+
+[node name="viande" parent="." instance=ExtResource("1_gjbl6")]
+position = Vector2(168, 59)
+
+[node name="player" parent="." instance=ExtResource("2_ej8xy")]
+position = Vector2(93, 86)
+
+[node name="Pan" parent="." instance=ExtResource("3_lhmnj")]
+position = Vector2(167, 108)

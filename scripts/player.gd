@@ -3,6 +3,7 @@ extends CharacterBody2D
 const SPEED = 100
 var current_SPEED = SPEED
 const factor_SPEED_acc = 1.8
+var is_holding_object = false
 
 func _ready():
 	$AnimatedSprite2D.play("idle")
@@ -49,5 +50,4 @@ func play_anim(x_axis , y_axis, acceleration) :
 			anim.play("walk")
 		else :
 			anim.play("run")
-		
-		
+
