@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://drl0uuefuj7io"]
+[gd_scene load_steps=7 format=3 uid="uid://drl0uuefuj7io"]
 
 [ext_resource type="PackedScene" uid="uid://bsffanajwtlyl" path="res://scenes/viande.tscn" id="1_gjbl6"]
 [ext_resource type="Script" path="res://scripts/niveau_0.gd" id="1_wf21w"]
 [ext_resource type="PackedScene" uid="uid://comy3p87362x2" path="res://scenes/player.tscn" id="2_ej8xy"]
 [ext_resource type="PackedScene" uid="uid://dgve1w6rfevn7" path="res://scenes/pan.tscn" id="3_lhmnj"]
 [ext_resource type="PackedScene" uid="uid://bv86eqaow532w" path="res://scenes/spawner_viande.tscn" id="5_l58cx"]
+[ext_resource type="PackedScene" uid="uid://b7v2lcol05rit" path="res://scenes/poubelle.tscn" id="6_g6wg0"]
 
 [node name="niveau0" type="Node2D"]
 script = ExtResource("1_wf21w")
@@ -23,3 +24,6 @@ position = Vector2(93, 86)
 
 [node name="Spawner_viande" parent="." instance=ExtResource("5_l58cx")]
 position = Vector2(164, 165)
+
+[node name="poubelle" parent="." instance=ExtResource("6_g6wg0")]
+position = Vector2(77, 163)

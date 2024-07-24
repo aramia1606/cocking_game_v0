@@ -21,15 +21,15 @@ class_name Food
 @export var burnTexture : Texture2D
 
 var listTexture =[]
-var player = null
-var cooker = null
+@onready var player = null
+@onready var cooker = null
+ 
+@onready var is_taken = false
+@onready var is_in_cooker = false
 
-var just_spawned 
-var is_taken = false
-var is_in_cooker = false
-
-var cooking_state: CookingState = CookingState.RAW
-var isCooking = false
+@onready var cooking_state: CookingState = CookingState.RAW
+@onready var isCooking = false
+@onready var in_trash = false
 
 enum CookingState {
 RAW,
@@ -49,17 +49,25 @@ func _ready():
 
 
 func _process(delta):
-	if just_spawned and player: 
-		#position = player.position + Vector2(20,-10)
-		just_spawned = false
 	cooking_percentage = get_cooking_percentage()
 	cooking_state = determine_cooking_state(cooking_percentage)
 	time_bar.value = cooking_percentage
 	uptdate_texture(cooking_state)
 	if is_in_cooker and cooker : 
-		position = cooker.position
+		global_position = cooker.global_position
 	elif  is_taken and player :
-		position = player.position + Vector2(20,-10)
+		global_position = player.position + Vector2(20,-10)
+	
+	if is_in_cooker and not in_trash:
+		interaction_area.action_name = "arrêter la cuisson"
+	elif is_taken and not in_trash:
+		interaction_area.action_name = "poser"
+	elif is_taken and in_trash:
+		interaction_area.action_name = "jeter"
+	elif cooker:
+		interaction_area.action_name = "cuire"
+	else :
+		interaction_area.action_name = "prendre"
 
 
 #func _physics_process(delta):
@@ -118,13 +126,6 @@ func get_cooking_percentage():
 		cooking_percentage = 0  # completely burnt
 	return cooking_percentage
 
-func _on_timer_1_timeout():
-	if not start_burn:
-		print("Started to burn")
-		start_burn = true
-		cooking_timer.start
-	else:
-		cooking_timer.stop()
 
 func uptdate_texture(state): #state va de 0 à 4
 	$Sprite2D.set_texture(listTexture[state])
@@ -149,7 +150,16 @@ func interact():
 			cook(cooking_time)
 			position = cooker.position
 			cooker.isFoodInside = true
+		elif in_trash:
+			remove_intsance()
 	print("player holding:", player.is_holding_object, " object position:", position, "-----------")
+
+func remove_intsance():
+	if is_instance_valid(self) :
+		is_taken = false
+		player.is_holding_object = false
+		self.queue_free()
+		
 
 func _on_interaction_area_body_entered(body):
 	print("body entered food: ", body.name)
@@ -157,19 +167,30 @@ func _on_interaction_area_body_entered(body):
 		print("player registered in food 's area")
 		player = body
 
-
 func _on_interaction_area_body_exited(body):
 	if body.name.find("player") !=-1 : 
 		player = null
 
-
 func _on_pick_area_entered(area):
+	var entered_object = area.get_parent()
 	print("area entered in food's area :" , area.get_parent().name )
-	if area.get_parent().name.find(cooker_name) != -1 :
+	if entered_object.name.find(cooker_name) != -1 :
 		print("Pan entered in food's area :" , area.get_parent() )
 		cooker = area.get_parent()
-
+	if entered_object.name.find("poubelle") != -1:
+		in_trash = true
 
 func _on_pick_area_exited(area):
-	if area.get_parent().name.find(cooker_name) != -1 :
+	var entered_object = area.get_parent()
+	if entered_object.name.find(cooker_name) != -1 :
 		cooker = null
+	if entered_object.name.find("poubelle") != -1:
+		in_trash = false
+
+func _on_timer_1_timeout():
+	if not start_burn:
+		print("Started to burn")
+		start_burn = true
+		cooking_timer.start
+	else:
+		cooking_timer.stop()

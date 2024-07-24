@@ -269,6 +269,7 @@ animation = &"run"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -9.5)
 shape = SubResource("RectangleShape2D_h1bwa")
+debug_color = Color(0.827451, 0.356863, 0.47451, 0.419608)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -10)
@@ -285,3 +286,5 @@ drag_vertical_enabled = true
 modulate = Color(0.802589, 0.797129, 0.772219, 1)
 position = Vector2(1, -14)
 shape = SubResource("CircleShape2D_jwh65")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

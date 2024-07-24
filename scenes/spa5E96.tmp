@@ -1,26 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv86eqaow532w"]
+[gd_scene load_steps=6 format=3 uid="uid://bv86eqaow532w"]
 
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="1_lmffo"]
 [ext_resource type="Texture2D" uid="uid://dhefpskuavyqd" path="res://sprite/food and kitchenware icons/viande_spawner.png" id="2_jyyko"]
 [ext_resource type="Script" path="res://scripts/interaction.gd" id="3_biehe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mdpx"]
+size = Vector2(28, 27)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrqvv"]
 radius = 27.0
 
 [node name="spawner_viande" type="Node2D" node_paths=PackedStringArray("sprite", "interaction_area")]
 script = ExtResource("1_lmffo")
+object_to_spawn_directory = "res://scenes/viande.tscn"
 sprite = NodePath("Sprite2D")
 interaction_area = NodePath("InteractionArea")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_jyyko")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_2mdpx")
+debug_color = Color(0.827451, 0.356863, 0.47451, 0.419608)
+
 [node name="InteractionArea" type="Area2D" parent="."]
 script = ExtResource("3_biehe")
-action_name = "faire apparaitre"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("CircleShape2D_rrqvv")
-
-[connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="_on_body_entered"]
-[connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="_on_body_exited"]

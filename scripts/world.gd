@@ -9,15 +9,17 @@ var listInstance = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	object = load("res://scenes/objet.tscn")
+	print(object)
 
 func new_instance():
-	var new_object = object.instantiate()
-	new_object.position = $player.position + Vector2(20, -10)
-	new_object.name = "obj" + str(nbInstance)
-	nbInstance += 1
-	add_child(new_object)
-	listObject.append(new_object)
+	if object.can_instantiate() :
+		var new_object = object.instantiate()
+		new_object.global_position = $player.position + Vector2(20, -10)
+		new_object.name = "obj" + str(nbInstance)
+		nbInstance += 1
+		add_child(new_object)
+		listObject.append(new_object)
 
 func alternateTexture(sprite: Sprite2D):
 	if texturePointer >= len(listTexture):

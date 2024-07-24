@@ -1,14 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgve1w6rfevn7"]
+[gd_scene load_steps=5 format=3 uid="uid://dgve1w6rfevn7"]
 
 [ext_resource type="Script" path="res://scripts/ustensil.gd" id="1_8b7rv"]
 [ext_resource type="Texture2D" uid="uid://dqfpv242t8ejd" path="res://sprite/food and kitchenware icons/poil.png" id="2_3vfm4"]
 [ext_resource type="Script" path="res://scripts/interaction.gd" id="3_g0c2n"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iuv4y"]
-size = Vector2(26.5, 15)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_nw0bd"]
-radius = 22.5056
+radius = 19.5064
 
 [node name="Pan" type="Node2D" node_paths=PackedStringArray("sprite", "interaction_area")]
 script = ExtResource("1_8b7rv")
@@ -16,16 +13,12 @@ use = 1
 sprite = NodePath("Sprite2D")
 interaction_area = NodePath("cook")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_iuv4y")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_3vfm4")
 
 [node name="cook" type="Area2D" parent="."]
 script = ExtResource("3_g0c2n")
-action_name = "cook"
+action_name = "cuire"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cook"]
 position = Vector2(0.5, 0.5)

@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv86eqaow532w"]
+[gd_scene load_steps=6 format=3 uid="uid://bv86eqaow532w"]
 
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="1_lmffo"]
 [ext_resource type="Texture2D" uid="uid://dhefpskuavyqd" path="res://sprite/food and kitchenware icons/viande_spawner.png" id="2_jyyko"]
 [ext_resource type="Script" path="res://scripts/interaction.gd" id="3_biehe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lc3iq"]
+size = Vector2(15, 15)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrqvv"]
 radius = 27.0
@@ -14,6 +17,10 @@ interaction_area = NodePath("InteractionArea")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_jyyko")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_lc3iq")
 
 [node name="InteractionArea" type="Area2D" parent="."]
 script = ExtResource("3_biehe")

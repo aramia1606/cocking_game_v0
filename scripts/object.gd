@@ -1,26 +1,33 @@
 extends StaticBody2D
 class_name pickableObject 
 
-
-@export_enum("Tomate", "Salade") var nameObject: String = "Tomate"
-var dictTextures = {"Tomate": "res://sprite/food and kitchenware icons/salade.png", "Salade": "res://sprite/food and kitchenware icons/tomato.png"}
-
+var player = null
+var interaction_area 
+var isHolded = false
 
 func _ready():
+	interaction_area = $InteractionArea
+	interaction_area.interact = Callable(self, "interact")
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if isHolded and player : 
+		global_position = player.global_position + Vector2(20,-10)
 
+func interact():
+	isHolded = not isHolded
 
-
-func _on_interaction_body_entered(body):
+func _on_interaction_area_body_entered(body):
 	$Label.visible = true
+	if body.name.find("player") != -1 :
+		player = body
+	pass # Replace with function body.
 
 
-func _on_interaction_body_exited(body):
+func _on_interaction_area_body_exited(body):
 	$Label.visible = false
-	#playerPosition = body.get_position()
-
+	if body.name.find("player") != -1 :
+		player = null
+	pass # Replace with function body.

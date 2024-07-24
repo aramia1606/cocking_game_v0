@@ -4,6 +4,7 @@ const SPEED = 100
 var current_SPEED = SPEED
 const factor_SPEED_acc = 1.8
 var is_holding_object = false
+var object = null
 
 func _ready():
 	$AnimatedSprite2D.play("idle")
@@ -51,3 +52,15 @@ func play_anim(x_axis , y_axis, acceleration) :
 		else :
 			anim.play("run")
 
+
+
+func _on_area_2d_area_entered(area):
+	if area.get_parent().name.find("viande") != -1:
+		object = area.get_parent()
+	pass # Replace with function body.
+
+
+func _on_area_2d_area_exited(area):
+	if area.get_parent().name.find("viande") != -1:
+		object = null
+	pass # Replace with function body.

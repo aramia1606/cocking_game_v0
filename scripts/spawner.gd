@@ -2,41 +2,42 @@ extends Node2D
 class_name Spawner
 
 @export_category("Propriétés")
-@export_file("*.tscn") var object_to_spawn_directory 
+@onready var scene_paths = {
+	0: "res://scenes/viande.tscn",
+	#"poulet": "res://scenes/poulet.tscn"
+}
 
+@export_enum("Viande:0") var object_to_spawn : int
 @export_category("Nodes")
 @export var sprite: Sprite2D
 @export var interaction_area: InteractionArea
 
+const listObject_path = ["res://scenes/viande.tscn"]
 var object = null
 var player = null
 var nbInstance = 0
 var listObject = []
+var object_to_spawn_path
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(object_to_spawn_directory)
-	object = load(object_to_spawn_directory)
-	print(object)
 	interaction_area.interact = Callable(self, "interact")
-
+	object_to_spawn_path = scene_paths.get(object_to_spawn)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
+
 func new_instance():
-	var new_object = object.instanciate()
-	#new_object.just_spawned = true
-	##new_object.position = player.position
-	##new_object.is_taken = true
-	##player.is_holding_object = true
-	new_object.name = new_object.name + str(nbInstance)
+	print(object_to_spawn_path, " indice du truc à apparaitre")
+	var new_object = load(object_to_spawn_path).instantiate()
+	new_object.global_position = Vector2(0, 25)
+	new_object.global_position += Vector2( randi_range(-10, 10), randi_range(-10,10) )
+	new_object.name = "viande" + str(nbInstance)
 	nbInstance += 1
 	add_child(new_object)
 	listObject.append(new_object)
-	new_object.set_as_toplevel(true)
-	new_object.global_position = global_position
-	print(new_object)
+
 
 
 func interact():
