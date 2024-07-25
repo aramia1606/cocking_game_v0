@@ -5,10 +5,11 @@ var current_SPEED = SPEED
 const factor_SPEED_acc = 1.8
 var is_holding_object = false
 var object = null
+var collected_money : int
 
 func _ready():
 	$AnimatedSprite2D.play("idle")
-	
+	collected_money = 0
 	
 func _physics_process(delta):
 	player_movement(delta)

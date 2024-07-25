@@ -249,11 +249,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jwh65"]
+radius = 34.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1bwa"]
 size = Vector2(20, 11)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_jwh65"]
-radius = 18.0278
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
 z_index = 4
@@ -266,11 +266,6 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_8o0qs")
 animation = &"run"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -9.5)
-shape = SubResource("RectangleShape2D_h1bwa")
-debug_color = Color(0.827451, 0.356863, 0.47451, 0.419608)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -10)
 limit_left = 0
@@ -281,10 +276,25 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
 [node name="Area2D" type="Area2D" parent="."]
+gravity_space_override = 1
+gravity_point = true
+gravity_point_unit_distance = 1.291
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="interaction" type="CollisionShape2D" parent="Area2D"]
 modulate = Color(0.802589, 0.797129, 0.772219, 1)
 position = Vector2(1, -14)
 shape = SubResource("CircleShape2D_jwh65")
+
+[node name="CollisionArea2D" type="Area2D" parent="."]
+
+[node name="collision" type="CollisionShape2D" parent="CollisionArea2D"]
+position = Vector2(0, -9.5)
+shape = SubResource("RectangleShape2D_h1bwa")
+debug_color = Color(0.827451, 0.356863, 0.47451, 0.419608)
+
+[node name="collision2" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9.5)
+shape = SubResource("RectangleShape2D_h1bwa")
+debug_color = Color(0.827451, 0.356863, 0.47451, 0.419608)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
