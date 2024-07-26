@@ -1,12 +1,49 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7v2lcol05rit"]
+[gd_scene load_steps=12 format=3 uid="uid://b7v2lcol05rit"]
 
 [ext_resource type="Texture2D" uid="uid://b0p4sxxx7gacm" path="res://sprite/poubelle.png" id="1_fbdae"]
 [ext_resource type="Script" path="res://scripts/poubelle.gd" id="1_w221v"]
 [ext_resource type="Texture2D" uid="uid://dodjf0gufwoho" path="res://sprite/poubelle_couvercle.png" id="2_kb317"]
 [ext_resource type="Script" path="res://scripts/interaction.gd" id="3_sk5cm"]
+[ext_resource type="Texture2D" uid="uid://bag0y2xcsjn6h" path="res://sprite/Mini FX, Items & UI/Mini FX, Items & UI/Effects/Bright_Sparkle (16 x 16).png" id="5_hygv8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8c0kh"]
 radius = 29.0172
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlfj4"]
+atlas = ExtResource("5_hygv8")
+region = Rect2(0, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o1gg"]
+atlas = ExtResource("5_hygv8")
+region = Rect2(20, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ng7qa"]
+atlas = ExtResource("5_hygv8")
+region = Rect2(40, 0, 20, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7sr3"]
+atlas = ExtResource("5_hygv8")
+region = Rect2(60, 0, 20, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qluen"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlfj4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o1gg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ng7qa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7sr3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="poubelle" type="Node2D"]
 script = ExtResource("1_w221v")
@@ -29,7 +66,13 @@ process_callback = 0
 wait_time = 3.0
 one_shot = true
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -10)
+sprite_frames = SubResource("SpriteFrames_qluen")
+
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
 [connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_area_exited"]
 [connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

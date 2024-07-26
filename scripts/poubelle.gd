@@ -5,8 +5,11 @@ var is_closed
 @onready var object_to_delete = null
 @onready var interaction_area = $InteractionArea
 
+var has_delete_object = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$AnimatedSprite2D.hide()
 	is_closed = not is_open
 	pass # Replace with function body.
 
@@ -14,6 +17,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	is_closed = not is_open
+	
 	if not is_open or $Timer.get_time_left() > 0 : 
 		$couvercle.position = Vector2(0,0)
 		$couvercle.rotation = 0
@@ -39,7 +43,9 @@ func interact():
 	if object_to_delete :
 		$Timer.start()
 		close()
-		object_to_delete
+		$AnimatedSprite2D.show()
+		$AnimatedSprite2D.play("default")
+		has_delete_object = true
 
 
 func _on_interaction_area_area_entered(area):
@@ -54,3 +60,9 @@ func _on_interaction_area_area_exited(area):
 	if object and object.get_name().find("player") == -1 :
 		object_to_delete = null
 
+
+
+func _on_timer_timeout():
+	$AnimatedSprite2D.hide()
+	$AnimatedSprite2D.stop()
+	has_delete_object = false

@@ -1,6 +1,8 @@
 extends Node2D
 class_name Food
 
+
+
 @export_category("Variables")
 @export var cooker_name : String
 @export_flags("chop") var state #coupé
@@ -13,6 +15,7 @@ class_name Food
 @export var sprite: Sprite2D
 @export var interaction_area: InteractionArea
 @export var cooking_timer: Timer
+@export var timer : Timer
 @export var time_bar: ProgressBar
 @export_subgroup("Textures")
 @export var rawTexture : Texture2D
@@ -20,9 +23,11 @@ class_name Food
 @export var cookedTexture : Texture2D
 @export var burnTexture : Texture2D
 
+
 var listTexture =[]
 @onready var player = null
 @onready var cooker = null
+@onready var jugement = null
  
 @onready var is_taken = false
 @onready var is_in_cooker = false
@@ -30,6 +35,9 @@ var listTexture =[]
 @onready var cooking_state: CookingState = CookingState.RAW
 @onready var isCooking = false
 @onready var in_trash = false
+@onready var to_judge = false
+
+const wait_time = 3
 
 enum CookingState {
 RAW,
@@ -38,6 +46,7 @@ GOOD,
 PERFECT,
 OVERCOOKED
 }
+
 
 
 func _ready():
@@ -78,6 +87,11 @@ func _process(delta):
 	#isPicked = not isPicked
 	#print("isPicked  =", isPicked)
 
+
+func _physics_process(delta):
+	pass
+
+
 func manage_cooking():
 		print(cooking_timer.get_time_left())
 		print("Cooking percentage:" , cooking_percentage)
@@ -88,6 +102,8 @@ func manage_cooking():
 			print("Fin cuisson")
 			stop_cooking()
 
+
+	
 func determine_cooking_state(percentage: float) -> CookingState:
 	if not start_burn and percentage == 0:
 		return CookingState.RAW
@@ -99,6 +115,10 @@ func determine_cooking_state(percentage: float) -> CookingState:
 		return CookingState.PERFECT
 	else :
 		return CookingState.OVERCOOKED
+
+func get_cooking_state() :
+	return cooking_state
+
 
 func cook(time_amount: int) -> void:
 	time_bar.show()
@@ -152,14 +172,20 @@ func interact():
 			cooker.isFoodInside = true
 		elif in_trash:
 			remove_intsance()
+		if to_judge:
+			timer.start(wait_time)
+			
+			print("timer ,judge, not is taken, time left:",timer.get_time_left() )
+			
 	print("player holding:", player.is_holding_object, " object position:", position, "-----------")
 
 func remove_intsance():
 	if is_instance_valid(self) :
 		is_taken = false
-		player.is_holding_object = false
+		if player :
+			player.is_holding_object = false
 		self.queue_free()
-		
+		print(self, ": instance supprimé")
 
 func _on_interaction_area_body_entered(body):
 	print("body entered food: ", body.name)
@@ -179,6 +205,10 @@ func _on_pick_area_entered(area):
 		cooker = area.get_parent()
 	if entered_object.name.find("poubelle") != -1:
 		in_trash = true
+	if entered_object.name.find("jugement_area")!= -1 : 
+		to_judge = true
+		jugement =  area
+		
 
 func _on_pick_area_exited(area):
 	var entered_object = area.get_parent()
@@ -194,3 +224,14 @@ func _on_timer_1_timeout():
 		cooking_timer.start
 	else:
 		cooking_timer.stop()
+
+
+
+	pass # Replace with function body.
+
+
+func _on_jugement_timeout():
+	remove_intsance()
+	jugement.spawn_coin(cooking_state)
+	print("on judgmenet timout")
+	

@@ -29,10 +29,10 @@ func _process(delta):
 
 
 func new_instance():
-	print(object_to_spawn_path, " indice du truc à apparaitre")
 	var new_object = load(object_to_spawn_path).instantiate()
 	new_object.global_position = Vector2(0, 25)
 	new_object.global_position += Vector2( randi_range(-10, 10), randi_range(-10,10) )
+	#penser au z-index
 	new_object.name = "viande" + str(nbInstance)
 	nbInstance += 1
 	add_child(new_object)

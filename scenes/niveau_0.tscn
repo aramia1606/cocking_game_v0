@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://drl0uuefuj7io"]
+[gd_scene load_steps=7 format=3 uid="uid://drl0uuefuj7io"]
 
 [ext_resource type="Script" path="res://scripts/niveau_0.gd" id="1_wf21w"]
 [ext_resource type="PackedScene" uid="uid://comy3p87362x2" path="res://scenes/player.tscn" id="2_ej8xy"]
 [ext_resource type="PackedScene" uid="uid://dgve1w6rfevn7" path="res://scenes/pan.tscn" id="3_lhmnj"]
 [ext_resource type="PackedScene" uid="uid://bv86eqaow532w" path="res://scenes/spawner_viande.tscn" id="5_l58cx"]
+[ext_resource type="PackedScene" uid="uid://v2yufic36hsu" path="res://scenes/jugement_area.tscn" id="6_emp3c"]
 [ext_resource type="PackedScene" uid="uid://b7v2lcol05rit" path="res://scenes/poubelle.tscn" id="6_g6wg0"]
 
 [node name="niveau0" type="Node2D"]
@@ -13,10 +14,13 @@ script = ExtResource("1_wf21w")
 position = Vector2(167, 108)
 
 [node name="player" parent="." instance=ExtResource("2_ej8xy")]
-position = Vector2(242, 222)
+position = Vector2(99, 111)
 
 [node name="Spawner_viande" parent="." instance=ExtResource("5_l58cx")]
 position = Vector2(164, 165)
 
 [node name="poubelle" parent="." instance=ExtResource("6_g6wg0")]
 position = Vector2(77, 163)
+
+[node name="jugement_area" parent="." instance=ExtResource("6_emp3c")]
+position = Vector2(382, 124)

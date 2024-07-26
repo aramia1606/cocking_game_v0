@@ -10,7 +10,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_hb5o0"]
 radius = 29.0
 
-[node name="viande" type="Node2D" node_paths=PackedStringArray("sprite", "interaction_area", "cooking_timer", "time_bar")]
+[node name="viande" type="Node2D" node_paths=PackedStringArray("sprite", "interaction_area", "cooking_timer", "timer", "time_bar")]
+z_index = 1
 position = Vector2(43, 26)
 script = ExtResource("1_e7d78")
 cooker_name = "Pan"
@@ -19,6 +20,7 @@ cooking_time = 20
 sprite = NodePath("Sprite2D")
 interaction_area = NodePath("pick")
 cooking_timer = NodePath("Timer1")
+timer = NodePath("jugement")
 time_bar = NodePath("ProgressBar")
 rawTexture = ExtResource("2_7wksy")
 undercookedTexture = ExtResource("3_pmosr")
@@ -55,6 +57,9 @@ action_name = "prendre"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pick"]
 shape = SubResource("CircleShape2D_hb5o0")
 
+[node name="jugement" type="Timer" parent="."]
+wait_time = 3.0
+
 [connection signal="timeout" from="Timer1" to="." method="_on_timer_1_timeout"]
 [connection signal="area_entered" from="pick" to="." method="_on_pick_area_entered"]
 [connection signal="area_exited" from="pick" to="." method="_on_pick_area_exited"]
@@ -62,3 +67,4 @@ shape = SubResource("CircleShape2D_hb5o0")
 [connection signal="body_entered" from="pick" to="pick" method="_on_body_entered"]
 [connection signal="body_exited" from="pick" to="." method="_on_interaction_area_body_exited"]
 [connection signal="body_exited" from="pick" to="pick" method="_on_body_exited"]
+[connection signal="timeout" from="jugement" to="." method="_on_jugement_timeout"]
