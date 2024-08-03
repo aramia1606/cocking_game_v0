@@ -1,9 +1,9 @@
 [gd_scene load_steps=69 format=3 uid="uid://v2yufic36hsu"]
 
 [ext_resource type="FontFile" uid="uid://yvsjnk6fn0nq" path="res://C&C Red Alert [INET].ttf" id="1_g1yn0"]
-[ext_resource type="Script" path="res://scenes/jugement.gd" id="2_24oys"]
+[ext_resource type="Script" path="res://scripts/jugement.gd" id="2_2xlds"]
 [ext_resource type="Texture2D" uid="uid://dto4rx41xcpk0" path="res://sprite/Cat Sprite Sheet.png" id="2_k15g7"]
-[ext_resource type="Script" path="res://scenes/cat_animation.gd" id="3_hxd62"]
+[ext_resource type="Script" path="res://scripts/cat_animation.gd" id="3_hxd62"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6x1ak"]
 size = Vector2(48, 40)
@@ -495,7 +495,7 @@ theme_override_font_sizes/font_size = 25
 text = "A manger !"
 
 [node name="jugement" type="Area2D" parent="."]
-script = ExtResource("2_24oys")
+script = ExtResource("2_2xlds")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="jugement"]
 position = Vector2(-41, -2)

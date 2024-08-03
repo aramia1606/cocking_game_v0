@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="cooked_Test"
-run/main_scene="res://scenes/player.tscn"
+run/main_scene="res://scenes/gameplay/player.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-InteractionManager="*res://scenes/interactionManager.tscn"
+InteractionManager="*res://scenes/managers/interactionManager.tscn"
 
 [display]
 

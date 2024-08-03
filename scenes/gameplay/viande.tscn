@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bsffanajwtlyl"]
+[gd_scene load_steps=9 format=3 uid="uid://bsffanajwtlyl"]
 
 [ext_resource type="Script" path="res://scripts/food.gd" id="1_e7d78"]
 [ext_resource type="Texture2D" uid="uid://cvnwc3xnuc1d6" path="res://sprite/food and kitchenware icons/viande_cru.png" id="2_7wksy"]
@@ -8,14 +8,20 @@
 [ext_resource type="Script" path="res://scripts/interaction.gd" id="6_re86h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hb5o0"]
-radius = 29.0
+radius = 26.0192
 
-[node name="viande" type="Node2D" node_paths=PackedStringArray("sprite", "interaction_area", "cooking_timer", "timer", "time_bar")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vhg4o"]
+radius = 8.24459
+height = 22.3377
+
+[node name="viande" type="RigidBody2D" node_paths=PackedStringArray("sprite", "interaction_area", "cooking_timer", "timer", "time_bar") groups=["food"]]
 z_index = 1
 position = Vector2(43, 26)
+gravity_scale = 0.0
+sleeping = true
+freeze = true
 script = ExtResource("1_e7d78")
 cooker_name = "Pan"
-state = 0
 cooking_time = 20
 sprite = NodePath("Sprite2D")
 interaction_area = NodePath("pick")
@@ -59,6 +65,12 @@ shape = SubResource("CircleShape2D_hb5o0")
 
 [node name="jugement" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
+rotation = 4.93754
+shape = SubResource("CapsuleShape2D_vhg4o")
+debug_color = Color(0.827451, 0.356863, 0.47451, 0.419608)
 
 [connection signal="timeout" from="Timer1" to="." method="_on_timer_1_timeout"]
 [connection signal="area_entered" from="pick" to="." method="_on_pick_area_entered"]

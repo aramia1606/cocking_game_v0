@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cwpo3bavjbidj" path="res://sprite/food and kitchenware icons/tomato.png" id="1_056ni"]
 [ext_resource type="Script" path="res://scripts/object.gd" id="1_qfylk"]
-[ext_resource type="PackedScene" uid="uid://dj3wrlqt3krqt" path="res://scenes/click_space.tscn" id="3_1h7ca"]
+[ext_resource type="PackedScene" uid="uid://dj3wrlqt3krqt" path="res://scenes/gameplay/click_space.tscn" id="3_1h7ca"]
 [ext_resource type="Script" path="res://scripts/interaction.gd" id="4_7exvn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qeqwy"]

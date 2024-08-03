@@ -1,14 +1,18 @@
-extends Node2D
+extends RigidBody2D
 class_name Food
 
-
+@export_category("Properties")
+@export var has_to_be_cooked : bool
+@export var has_to_be_choped : bool
 
 @export_category("Variables")
 @export var cooker_name : String
-@export_flags("chop") var state #coupé
+@export_flags("chop") var is_choped #coupé
 @export var cooking_percentage: int 
 @export var cooking_time: int
 @export var start_burn: bool = false
+@export var jugement_wait_time = 3
+
 
 @export_category("Nodes")
 @export_subgroup("Nodes principal")
@@ -28,7 +32,8 @@ var listTexture =[]
 @onready var player = null
 @onready var cooker = null
 @onready var jugement = null
- 
+@onready var cutting_board = null 
+
 @onready var is_taken = false
 @onready var is_in_cooker = false
 
@@ -36,8 +41,7 @@ var listTexture =[]
 @onready var isCooking = false
 @onready var in_trash = false
 @onready var to_judge = false
-
-const wait_time = 3
+@onready var can_interact = true
 
 enum CookingState {
 RAW,
@@ -49,8 +53,8 @@ OVERCOOKED
 
 
 
+#region process_ready
 func _ready():
-	print(position)
 	interaction_area.interact = Callable(self, "interact")
 	listTexture = [rawTexture ,undercookedTexture,cookedTexture, cookedTexture, burnTexture]
 	cooking_percentage = 0
@@ -65,7 +69,12 @@ func _process(delta):
 	if is_in_cooker and cooker : 
 		global_position = cooker.global_position
 	elif  is_taken and player :
-		global_position = player.position + Vector2(20,-10)
+		var flip
+		if player.get_node("AnimatedSprite2D").flip_h:
+			flip = -1
+		else : 
+			flip = 1
+		global_position = player.position + Vector2(flip * 25 ,-10)
 	
 	if is_in_cooker and not in_trash:
 		interaction_area.action_name = "arrêter la cuisson"
@@ -77,6 +86,7 @@ func _process(delta):
 		interaction_area.action_name = "cuire"
 	else :
 		interaction_area.action_name = "prendre"
+#endregion
 
 
 #func _physics_process(delta):
@@ -92,6 +102,7 @@ func _physics_process(delta):
 	pass
 
 
+#region cooking_process
 func manage_cooking():
 		print(cooking_timer.get_time_left())
 		print("Cooking percentage:" , cooking_percentage)
@@ -149,35 +160,56 @@ func get_cooking_percentage():
 
 func uptdate_texture(state): #state va de 0 à 4
 	$Sprite2D.set_texture(listTexture[state])
+#endregion
 
 func interact():
-	print("player holding:", player.is_holding_object, " object position:", position)
-	if player and not player.is_holding_object :
-		print("joueur prend et cuisson eventuel s'arrête")
-		is_taken = true
-		player.is_holding_object = true
-		if isCooking : 
-			stop_cooking()
-			cooker.isFoodInside = false
-			is_in_cooker = false
-	else:
-		print("joueur pose l'objet ou la cuisson commence")
-		is_taken = false
-		player.is_holding_object = false
-		if cooker != null and not cooker.isFoodInside :
-			print("Début de cuisson et dans la poele")
-			is_in_cooker = true
-			cook(cooking_time)
-			position = cooker.position
-			cooker.isFoodInside = true
-		elif in_trash:
-			remove_intsance()
-		if to_judge:
-			timer.start(wait_time)
+	if can_interact:
+		#print("player holding:", player.is_holding_object, " object position:", position)
+		if player and not player.is_holding_object :
+			print("joueur prend")
+			is_taken = true
+			player.is_holding_object = true
+			if isCooking : 
+				stop_cooking()
+				cooker.isFoodInside = false
+				is_in_cooker = false
+			elif cutting_board and player.is_cutting :
+				print("stop cuting")
+				player.is_cutting = false
+				if not is_choped:
+					print("fonction stop called")
+					cutting_board.stop_cut(self)
+		elif player:
+			print("joueur pose l'objet ou la cuisson commence")
+			var distance 
+			if cutting_board : 
+				distance = cutting_board.global_position.distance_to(self.global_position)
+			var distance_interaction = get_node("pick/CollisionShape2D").shape.radius / 2.5
+			is_taken = false
+			player.is_holding_object = false
+			if has_to_be_cooked :
+				if cooker != null and not cooker.isFoodInside :
+					print("Début de cuisson et dans la poele")
+					is_in_cooker = true
+					cook(cooking_time)
+					place_object_in(cooker)
+					cooker.isFoodInside = true
+			elif in_trash:
+				print("Suppression :", self)
+				remove_intsance()
+			elif has_to_be_choped :
+				if cutting_board and not is_choped and distance < distance_interaction: 
+					print(distance," ", distance_interaction, "\n découpage")
+					place_object_in(cutting_board)
+					cutting_board.cut(self)
+					player.is_cutting = true
 			
-			print("timer ,judge, not is taken, time left:",timer.get_time_left() )
-			
-	print("player holding:", player.is_holding_object, " object position:", position, "-----------")
+			if to_judge:
+				timer.start(jugement_wait_time)
+				place_object_in(jugement) #ligne  qui bug
+				print("timer ,judge, not is taken, time left:",timer.get_time_left() )
+				
+	#print("player holding:", player.is_holding_object, " object position:", position, "-----------")
 
 func remove_intsance():
 	if is_instance_valid(self) :
@@ -187,6 +219,10 @@ func remove_intsance():
 		self.queue_free()
 		print(self, ": instance supprimé")
 
+func place_object_in(ustensil):
+	global_position = ustensil.global_position
+
+#region signal
 func _on_interaction_area_body_entered(body):
 	print("body entered food: ", body.name)
 	if body.name.find("player") !=-1 : 
@@ -196,6 +232,7 @@ func _on_interaction_area_body_entered(body):
 func _on_interaction_area_body_exited(body):
 	if body.name.find("player") !=-1 : 
 		player = null
+
 
 func _on_pick_area_entered(area):
 	var entered_object = area.get_parent()
@@ -208,6 +245,8 @@ func _on_pick_area_entered(area):
 	if entered_object.name.find("jugement_area")!= -1 : 
 		to_judge = true
 		jugement =  area
+	if entered_object.name.find("cutting_board") != -1:
+		cutting_board = entered_object
 		
 
 func _on_pick_area_exited(area):
@@ -216,6 +255,9 @@ func _on_pick_area_exited(area):
 		cooker = null
 	if entered_object.name.find("poubelle") != -1:
 		in_trash = false
+	if entered_object.name.find("cutting_board") != -1:
+		cutting_board = null
+
 
 func _on_timer_1_timeout():
 	if not start_burn:
@@ -227,11 +269,12 @@ func _on_timer_1_timeout():
 
 
 
-	pass # Replace with function body.
-
-
 func _on_jugement_timeout():
 	remove_intsance()
 	jugement.spawn_coin(cooking_state)
 	print("on judgmenet timout")
 	
+
+#endregion
+
+

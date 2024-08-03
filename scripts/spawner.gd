@@ -3,7 +3,7 @@ class_name Spawner
 
 @export_category("Propriétés")
 @onready var scene_paths = {
-	0: "res://scenes/viande.tscn",
+	0: "res://scenes/gameplay/viande.tscn",
 	#"poulet": "res://scenes/poulet.tscn"
 }
 
@@ -12,7 +12,7 @@ class_name Spawner
 @export var sprite: Sprite2D
 @export var interaction_area: InteractionArea
 
-const listObject_path = ["res://scenes/viande.tscn"]
+const listObject_path = ["res://scenes/gameplay/viande.tscn"]
 var object = null
 var player = null
 var nbInstance = 0

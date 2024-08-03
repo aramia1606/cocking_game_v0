@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bag0y2xcsjn6h" path="res://sprite/Mini FX, Items & UI/Mini FX, Items & UI/Effects/Bright_Sparkle (16 x 16).png" id="5_hygv8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8c0kh"]
-radius = 29.0172
+radius = 18.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dlfj4"]
 atlas = ExtResource("5_hygv8")

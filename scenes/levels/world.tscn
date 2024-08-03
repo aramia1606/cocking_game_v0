@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://b1eygrh7ivfxs" path="res://sprite/forest/Texture/TX Shadow Plant.png" id="6_sij2q"]
 [ext_resource type="Texture2D" uid="uid://cjmjfr0b34gra" path="res://sprite/forest/Texture/TX Props.png" id="7_q4nks"]
 [ext_resource type="Texture2D" uid="uid://00yo7bqwkjx8" path="res://sprite/forest/Texture/TX Plant.png" id="8_wfymc"]
-[ext_resource type="PackedScene" uid="uid://comy3p87362x2" path="res://scenes/player.tscn" id="9_4fxvp"]
-[ext_resource type="PackedScene" uid="uid://bsffanajwtlyl" path="res://scenes/viande.tscn" id="11_o7n2j"]
+[ext_resource type="PackedScene" uid="uid://comy3p87362x2" path="res://scenes/gameplay/player.tscn" id="9_4fxvp"]
+[ext_resource type="PackedScene" uid="uid://bsffanajwtlyl" path="res://scenes/gameplay/viande.tscn" id="11_o7n2j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4bps3"]
 texture = ExtResource("1_iksi8")

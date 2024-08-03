@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://drl0uuefuj7io"]
+
+[ext_resource type="PackedScene" uid="uid://dgve1w6rfevn7" path="res://scenes/gameplay/pan.tscn" id="2_70mds"]
+[ext_resource type="PackedScene" uid="uid://comy3p87362x2" path="res://scenes/gameplay/player.tscn" id="3_4fhb6"]
+[ext_resource type="PackedScene" uid="uid://bv86eqaow532w" path="res://scenes/gameplay/spawner_viande.tscn" id="4_y1ntq"]
+[ext_resource type="PackedScene" uid="uid://b7v2lcol05rit" path="res://scenes/gameplay/poubelle.tscn" id="5_ft5kb"]
+[ext_resource type="PackedScene" uid="uid://ht3lc1huw140" path="res://scenes/gameplay/cutting_board.tscn" id="6_jts43"]
+[ext_resource type="PackedScene" uid="uid://v2yufic36hsu" path="res://scenes/gameplay/jugement_area.tscn" id="6_q0gm4"]
+
+[node name="niveau0" type="Node2D"]
+
+[node name="Pan" parent="." instance=ExtResource("2_70mds")]
+position = Vector2(78, 96)
+
+[node name="player" parent="." instance=ExtResource("3_4fhb6")]
+position = Vector2(217, 171)
+
+[node name="Spawner_viande" parent="." instance=ExtResource("4_y1ntq")]
+position = Vector2(78, 240)
+
+[node name="poubelle" parent="." instance=ExtResource("5_ft5kb")]
+position = Vector2(77, 163)
+
+[node name="jugement_area" parent="." instance=ExtResource("6_q0gm4")]
+position = Vector2(359, 159)
+
+[node name="cutting_board" parent="." instance=ExtResource("6_jts43")]
+position = Vector2(69, 46)

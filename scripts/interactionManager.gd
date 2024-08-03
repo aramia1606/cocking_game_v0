@@ -12,12 +12,14 @@ var can_interact = true
 
 
 func register_area(area: InteractionArea):
-	active_areas.push_back(area)
+	if active_areas.find(area) == -1 : 
+		active_areas.push_back(area)
 
 func unregister_area(area: InteractionArea):
 	var index = active_areas.find(area)
-	if index != -1:
+	while index != -1 :
 		active_areas.remove_at(index)
+		index = active_areas.find(area)
 
 
 
@@ -31,7 +33,6 @@ func _process(delta):
 		label.show()
 	else: 
 		label.hide()
-		pass
 
 func _sort_by_distance_to_player(area1 , area2):
 	var area1_to_player = player.global_position.distance_to(area1.global_position)

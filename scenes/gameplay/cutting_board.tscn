@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://ht3lc1huw140"]
+
+[ext_resource type="Script" path="res://scripts/ustensil.gd" id="1_ttl86"]
+[ext_resource type="Texture2D" uid="uid://b0qgqnvox5hry" path="res://sprite/food and kitchenware icons/cutting_board.png" id="2_8f8an"]
+[ext_resource type="Script" path="res://scripts/interaction.gd" id="3_ju5fx"]
+[ext_resource type="Script" path="res://scripts/ProgressBar_cuttingBoard.gd" id="4_ts34o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r5shb"]
+radius = 19.0263
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2it83"]
+radius = 19.5064
+
+[node name="cutting_board" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_ttl86")
+use = 0
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 2)
+texture = ExtResource("2_8f8an")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="InteractionArea" type="Area2D" parent="."]
+script = ExtResource("3_ju5fx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_r5shb")
+
+[node name="ProgressBar2" type="ProgressBar" parent="."]
+visible = false
+z_index = 5
+clip_contents = true
+custom_minimum_size = Vector2(60, 0)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -29.0
+offset_top = -27.0
+offset_right = 31.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_stretch_ratio = 5.4
+max_value = 5.0
+rounded = true
+show_percentage = false
+script = ExtResource("4_ts34o")
+metadata/_edit_use_anchors_ = true
+
+[node name="chop" type="Area2D" parent="."]
+script = ExtResource("3_ju5fx")
+action_name = "couper"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chop"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_2it83")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="chop" to="chop" method="_on_body_entered"]
+[connection signal="body_exited" from="chop" to="chop" method="_on_body_exited"]

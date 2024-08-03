@@ -19,5 +19,3 @@ func _on_body_exited(body):
 	InteractionManager.unregister_area(self)
 
 
-func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	pass # Replace with function body.

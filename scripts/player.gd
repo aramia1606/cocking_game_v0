@@ -3,16 +3,24 @@ extends CharacterBody2D
 const SPEED = 100
 var current_SPEED = SPEED
 const factor_SPEED_acc = 1.8
+var can_move = true
 var is_holding_object = false
+var is_cutting = false
 var object = null
 var collected_money : int
 
 func _ready():
 	$AnimatedSprite2D.play("idle")
 	collected_money = 0
-	
+
+
 func _physics_process(delta):
-	player_movement(delta)
+	if is_cutting:
+		can_move = false
+	else : 
+		can_move = true
+	if can_move:
+		player_movement(delta)
 	
 
 func player_movement(delta):
@@ -37,8 +45,10 @@ func player_movement(delta):
 	move_and_slide()	
 
 func isFliped(x_axis):
-	if x_axis >= 0 :
+	if x_axis > 0:
 		return false
+	elif x_axis == 0:
+		return null
 	else :
 		return true 
 
@@ -47,7 +57,8 @@ func play_anim(x_axis , y_axis, acceleration) :
 	if x_axis == 0 and y_axis ==0 :
 		anim.play("idle")
 	else : 
-		anim.flip_h = isFliped(x_axis)
+		if isFliped(x_axis) != null :
+			anim.flip_h = isFliped(x_axis)
 		if acceleration == false :
 			anim.play("walk")
 		else :
