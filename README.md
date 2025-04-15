@@ -23,6 +23,11 @@
 - [x] Timed cooking tasks
 - [ ] Simple scoring system
 
+![image](https://github.com/user-attachments/assets/be8594cd-2511-493e-b5d1-77cd3559c441)
+
+![image](https://github.com/user-attachments/assets/2c63e78d-b96a-4020-bb71-32ad2e6832ec)
+
+
 ---
 
 ## 🎨 Assets & Tools
@@ -79,6 +84,7 @@
         └── ...<br>
 
 ---
+
 
 ## 🚀 Getting Started
 
